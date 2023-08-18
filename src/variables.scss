@@ -1,0 +1,41 @@
+/* Variables and mixins declared here will be available in all other SCSS files */
+// colors
+$white-background: var(--gray-0);
+$white: #ffffff;
+$gray-border: var(--gray-3);
+$gray-background: var(--gray-2);
+$gray-text: var(--gray-6);
+$black: var(--gray-12);
+$blue: #0033E7;
+$green: var(--green-7);
+
+// typography
+$heading: var(--font-size-fluid-3);
+$body: var(--font-size-fluid-1);
+$sub-heading: var(--font-size-fluid-2);
+$links: var(--font-size-fluid-0);
+$label: var(--font-size-0);
+$sub-body: var(--font-size-1);
+
+// border
+$border: var(--border-size-1);
+$border-radius-1: var(--radius-2);
+$border-radius-2: var(--radius-3) ;
+$border-radius-2: var(--radius-4);
+
+// mixins
+@mixin transition-menu{
+    transition: all .3s var(--ease-spring-2);
+}
+
+@mixin transition{
+    transition: all .3s var(--ease-2);
+}
+
+@mixin flex($flex-direction, $align-items, $justify-content, $gap){
+    display: flex;
+    flex-direction: $flex-direction;
+    align-items: $align-items;
+    justify-content: $justify-content;
+    gap: $gap;
+}
