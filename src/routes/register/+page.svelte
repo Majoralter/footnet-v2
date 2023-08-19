@@ -4,7 +4,7 @@
     import { auth } from "$lib/firebase/firebase"
 
     let register = true,
-        authenicating = false,
+        authenticating = false,
         email = "",
         password = "",
         confirmPassword = "",
@@ -13,8 +13,8 @@
         console.log(user)
 
     const handleAuth = async () =>{
-        if(authenicating) return
-
+        authenticating = true
+    
         if(!email || !password || (register && !confirmPassword)){
             alert("Check your Details!")
             return
@@ -43,7 +43,9 @@
             alert(error.message)
         }
 
-        authenicating = true
+        if(authenticating) return
+
+        authenticating = false
     }
 
     const handleRegister = () =>{
@@ -73,11 +75,12 @@
         </label>
         {/if}
         <button on:click={handleAuth} type="button">
-            {#if register}
+            {#if register && !authenticating}
                 Sign Up
-
-            {:else}
-            Login    
+            {:else if !register && !authenticating}
+            Login
+            {:else if authenticating}
+            <span class="material-symbols-outlined">hourglass_top</span>
             {/if}
         </button>
 
@@ -164,6 +167,10 @@
 
                 &:hover{
                     scale: 1.01;
+                }
+
+                span{
+                    animation: var(--animation-spin);
                 }
             }
 

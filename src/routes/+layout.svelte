@@ -26,6 +26,7 @@ onAuthStateChanged(auth, user =>{
     }
 })
 
+
 const handleLogout = async () =>{
     await authHandlers.logout()
 

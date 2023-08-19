@@ -1,14 +1,14 @@
 <script>
-    import { onMount } from "svelte";
+import { onMount } from "svelte";
 
-    const url = 'https://livescore6.p.rapidapi.com/news/v2/list';
-    const options = {
-	method: 'GET',
-    'cache': 'force-cache',
-	headers: {
-		'X-RapidAPI-Key': import.meta.env.VITE_RAPID_API_KEY,
-		'X-RapidAPI-Host': 'livescore6.p.rapidapi.com'
-	}
+const url = 'https://livescore6.p.rapidapi.com/news/v2/list';
+const options = {
+method: 'GET',
+'cache': 'force-cache',
+headers: {
+	'X-RapidAPI-Key': import.meta.env.VITE_RAPID_API_KEY,
+	'X-RapidAPI-Host': 'livescore6.p.rapidapi.com'
+}
 }
 
 let featuredArticles = [],
@@ -24,8 +24,6 @@ onMount(async () =>{
     topStories = [...data.topStories]
     homepageArticles = [...data.homepageArticles]
     footballArticles = [...homepageArticles[0].articles]
-
-    // console.log(footballArticles)
 
     windowWidth = window.innerWidth
 
@@ -84,7 +82,7 @@ onMount(async () =>{
 
         <swiper-container class="articles" 
         grid-rows="3" 
-        slides-per-view={windowWidth >= 960 ? 3 : 1}
+        slides-per-view={windowWidth >= 960 ? 2 : 1}
         grid-fill="row" 
         grab-cursor="true"
         space-between="20"

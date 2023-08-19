@@ -1,26 +1,79 @@
 <script>
 import _ from 'lodash'
-export let data
+import { onMount } from 'svelte';
 
-let matches = data.result,
-        date = new Date(),
-        localeDate = date.toDateString()
 
-matches.sort((a,b) => a.league_id - b.league_id)
-const groupedData = _.groupBy(matches, match => match.league.name)
-const keys = Object.entries(groupedData)
+    let date = new Date(),
+    localeDate = date.toDateString(),
+    items = ['Live scores', 'Results', 'Fixtures'],
+    activeItem = items[0],
+    groupedData,
+    keys = [],
+    filteredKey = [],
+    filteredLeague,
+    handleFilter,
+    isFiltered = false
+
+
+
+const url = 'https://sportscore1.p.rapidapi.com/sports/1/events/live?page=1';
+const options = {
+method: 'GET',
+'cache': 'force-cache',
+headers: {
+	'X-RapidAPI-Key': import.meta.env.VITE_RAPID_API_KEY,
+	'X-RapidAPI-Host': 'sportscore1.p.rapidapi.com'
+}
+};  
+
+onMount(async () =>{
+  const response = await fetch(url,options),
+         data = await response.json(),
+         matches = data.data
+
+    matches.sort((a,b) => a.league_id - b.league_id)
+    groupedData = _.groupBy(matches, match => match.league.name)
+    keys = Object.entries(groupedData)
+
+    keys = [...keys]
+
+ handleFilter = () => {
+    if(filteredLeague === "All"){
+        isFiltered = false
+        return
+    }
+    isFiltered = true
+    filteredKey = keys.filter(key => key.includes(filteredLeague[0]))
+}
+})
 </script>
 
-<section class="live_scores">
-    <div class="aside_header">
-        <h2><span class="material-symbols-outlined">adjust</span> Live Matches</h2>
-        <p>{localeDate}</p>    
-        </div>
+<section>
+    <header>
+        <ul>
+           {#each items as item}
+                <li>
+                    <button on:click={() => activeItem = item} class:active={activeItem === item}>{item}</button>
+                </li>
+           {/each}
+        </ul>
+    </header>
 
+    {#if activeItem === items[0]}
         <div class="matches">
-        {#each keys as games}
-            <p class="league_name">{games[0]}</p>
+            <label for="league-select">Filter by League</label>
+            <select name="league-select" bind:value={filteredLeague} on:change={handleFilter}>
+                <option value="All">All</option>
+                {#each keys as games}
+                    <option value={games}>
+                        {games[0]}
+                    </option>
+                {/each}
+            </select>
 
+            {#if !isFiltered}
+            {#each keys as games}
+            <p class="league_name">{games[0]}</p>
             {#each games[1] as game}
             <div class="match_details">
                 <div class="home_team">
@@ -40,32 +93,63 @@ const keys = Object.entries(groupedData)
             </div>
             {/each}
         {/each}
+
+        {:else}
+            <p class="league_name">{filteredKey[0][0]}</p>
+            {#each filteredKey[0][1] as match}
+            <div class="match_details">
+                <div class="home_team">
+                    <img src={match.home_team.logo} alt="">
+                    <p>{match.home_team.name}</p>
+                </div>
+
+                <div class="scores_time">
+                    <h6>{match.status_more}</h6>
+                    <p>{match.home_score.current} - {match.away_score.current}</p>
+                </div>
+
+                <div class="away_team">
+                    <img src={match.away_team.logo} alt="">
+                    <p>{match.away_team.name}</p>
+                </div>
+            </div>
+            {/each}
+        {/if}
       </div>
+      {/if}
 </section>
 
 
 <style lang="scss">
     section{
-        width: 70%;
-        .aside_header{
+        width: 50%;
+        margin-inline: auto;
+        @include flex(column, center, center, 1em);
+
+        header{
+            width: 80%;
+            padding: 1rem;
+            ul{
                 width: 100%;
                 @include flex(row, center, space-between, 0);
 
-                h2{
-                    font-size: $body;
-                    @include flex(row, center, center, .1rem);
+                li{
+                    button{
+                        padding: 12px 24px;
+                        border: none;
+                        background: $gray-background;
+                        border-radius: $border-radius-2;
+                        cursor: pointer;
 
-                    span{
-                        color: $green;
+                        &.active{
+                            background-color: $blue;
+                            color: $white;
+                        }
                     }
                 }
-
-                p{
-                    font-size: $sub-body;
-                    color: $gray-text;
-                }
             }
-
+        }
+    
             .matches{
                 @include flex(column, flex-start, flex-start, 1rem);
                 width: 100%;

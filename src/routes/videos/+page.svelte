@@ -6,7 +6,7 @@ const options = {
 	method: 'GET',
     'cache': 'force-cache',
 	headers: {
-		'X-RapidAPI-Key': '7305ec08b8mshf4e8a44ddfe4721p19cadbjsn09c955a677d1',
+		'X-RapidAPI-Key': import.meta.env.VITE_RAPID_API_KEY,
 		'X-RapidAPI-Host': 'free-football-soccer-videos.p.rapidapi.com'
 	}
 };
@@ -19,13 +19,13 @@ onMount(async () =>{
     
     videos = [...data] 
     
-    console.log(videos)
+    // console.log(videos)
 
 })
 </script>
 
 <section>
-    <div>
+    <div class="container">
         {#each videos as video}
         <div>
             <h4>{video.title}</h4>
@@ -39,12 +39,14 @@ onMount(async () =>{
 
 <style lang="scss">
     section{
-        div{
+        @include flex(column, center, center, 0);
+        .container{
         margin-top: 20px;
         display: grid;
-        grid-template-columns: repeat(3,1fr);
-        column-gap: 20px;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1em;
         place-items: center;
+        width: 100%;
 
             div{
                 @include flex(column, flex-start, flex-start, .5rem);
@@ -66,6 +68,7 @@ onMount(async () =>{
             img{
                 width: 350px;
                 height: auto;
+                max-width: 100%;
                 object-fit: cover;
                 }
              }
