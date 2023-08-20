@@ -5,18 +5,20 @@ import { onMount } from 'svelte';
 
     let date = new Date(),
     localeDate = date.toDateString(),
-    items = ['Live scores', 'Results', 'Fixtures'],
+    items = ['Live scores', 'Results'],
     activeItem = items[0],
     groupedData,
     keys = [],
     filteredKey = [],
     filteredLeague,
     handleFilter,
-    isFiltered = false
+    isFiltered = false,
+    results
 
 
 
-const url = 'https://sportscore1.p.rapidapi.com/sports/1/events/live?page=1';
+const url = 'https://sportscore1.p.rapidapi.com/sports/1/events/live?page=1',
+      resultsUrl = 'https://sportscore1.p.rapidapi.com/sports/1/events?page=1'  
 const options = {
 method: 'GET',
 'cache': 'force-cache',
@@ -36,6 +38,13 @@ onMount(async () =>{
     keys = Object.entries(groupedData)
 
     keys = [...keys]
+
+    const resultsResponse = await fetch(resultsUrl, options),
+          resultsData = await resultsResponse.json()
+          results = resultsData.data  
+          results.sort((a,b) => a.id - b.id)
+
+          console.log(results)
 
  handleFilter = () => {
     if(filteredLeague === "All"){
@@ -61,7 +70,7 @@ onMount(async () =>{
 
     {#if activeItem === items[0]}
         <div class="matches">
-            <label for="league-select">Filter by League</label>
+            <label for="league-select" style="font-weight: bold;">Filter by League
             <select name="league-select" bind:value={filteredLeague} on:change={handleFilter}>
                 <option value="All">All</option>
                 {#each keys as games}
@@ -70,6 +79,9 @@ onMount(async () =>{
                     </option>
                 {/each}
             </select>
+        </label>
+
+        <p style="color: gray;">{localeDate}</p>
 
             {#if !isFiltered}
             {#each keys as games}
@@ -117,28 +129,52 @@ onMount(async () =>{
         {/if}
       </div>
       {/if}
+
+      {#if activeItem === items[1]}
+      <div class="results">
+        {#each results as result}
+        <div class="match_details">
+            <div class="home_team">
+                <img src={result.home_team.logo} alt="">
+                <p>{result.home_team.name}</p>
+            </div>
+
+            <div class="scores_time">
+                <h6>{result.status_more}</h6>
+                <p>{result.home_score?.display ?? "TBD"} - {result.away_score?.display ?? "TBD"}</p>
+            </div>
+
+            <div class="away_team">
+                <img src={result.away_team.logo} alt="">
+                <p>{result.away_team.name}</p>
+            </div>
+        </div>
+        {/each}
+    </div>
+      {/if}
 </section>
 
 
 <style lang="scss">
     section{
-        width: 50%;
+        width: 55vw;
         margin-inline: auto;
         @include flex(column, center, center, 1em);
 
         header{
-            width: 80%;
+            width: 70%;
             padding: 1rem;
             ul{
                 width: 100%;
-                @include flex(row, center, space-between, 0);
+                @include flex(row, center, center, 0);
 
                 li{
+                    width: 50%;
                     button{
+                        width: 100%;
                         padding: 12px 24px;
                         border: none;
                         background: $gray-background;
-                        border-radius: $border-radius-2;
                         cursor: pointer;
 
                         &.active{
@@ -150,7 +186,7 @@ onMount(async () =>{
             }
         }
     
-            .matches{
+            .matches,.results{
                 @include flex(column, flex-start, flex-start, 1rem);
                 width: 100%;
 
@@ -195,9 +231,20 @@ onMount(async () =>{
                         font-size: $body;
                         font-weight: 500;
                         color: $black;
+                        white-space: nowrap;
                     }
                 }
             }
             }
+    }
+
+    @media (max-width: 768px){
+        section{
+            width: 90vw;
+
+            header{
+                width: calc(100% + 10vw);
+            }
+        }
     }
 </style>

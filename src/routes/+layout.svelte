@@ -79,16 +79,16 @@ const handleClick = () =>{
 <nav class="mobile_nav" class:active="{active}" transition:fade>
     <ul>
         <li><span class="material-symbols-outlined">video_library</span><a href="/videos" data-sveltekit-preload-data="tap" on:click={handleClick}>Highlights</a></li>
-        <li><span class="material-symbols-outlined">scoreboard</span><a href="/" on:click={handleClick}>Fixtures &amp; Results</a></li>
+        <li><span class="material-symbols-outlined">scoreboard</span><a href="/fixtures" on:click={handleClick}>Fixtures &amp; Results</a></li>
         <li><span class="material-symbols-outlined">trending_up</span><a href="/" on:click={handleClick}>Standings</a></li>
         <li><span class="material-symbols-outlined">groups</span><a href="/" on:click={handleClick}>Lineup Builder</a></li>
         <li><span class="material-symbols-outlined">quiz</span><a href="/" on:click={handleClick}>Trivia and quizzes</a></li>
 
         {#if userIsSignedIn}
-        <li><button on:click="{handleLogout}">Log out</button></li>
+        <li><button on:click="{handleLogout, handleClick}">Log out</button></li>
         
         {:else}
-        <li><a href="/register">Join</a></li>
+        <li><a href="/register" on:click={handleClick}>Join</a></li>
         {/if}
     </ul>
 </nav>

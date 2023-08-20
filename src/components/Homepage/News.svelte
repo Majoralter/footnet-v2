@@ -35,6 +35,9 @@ onMount(async () =>{
 </script>
 
 <section>
+    {#if !featuredArticles || !topStories || !footballArticles}
+    <span class="material-symbols-outlined">hourglass_top</span>
+    {:else}
     <div class="header"><h3>Featured</h3></div>
         <swiper-container 
          slides-per-view={windowWidth >= 960 ? 2 : 1}
@@ -100,6 +103,7 @@ onMount(async () =>{
             </swiper-slide>
             {/each}
         </swiper-container>
+        {/if}
 </section>
 
 

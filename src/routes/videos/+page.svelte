@@ -18,9 +18,6 @@ onMount(async () =>{
           data = await response.json()
     
     videos = [...data] 
-    
-    // console.log(videos)
-
 })
 </script>
 
