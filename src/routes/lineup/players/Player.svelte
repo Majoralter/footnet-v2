@@ -1,5 +1,7 @@
 <script>
     import Shirt from "$lib/shirt.png"
+    import Boot from "$lib/soccer-boot.png"
+    import Ball from "$lib/football.png"
     import { fade } from "svelte/transition";
    
     export let shirt = Shirt
@@ -7,13 +9,22 @@
    let active = false,
     name = "Player",
     number= Math.floor(Math.random() * 48) + 1 || "#",
-    checked = false,
+    checkedYellow = false,
+    checkedRed = false,
+    checkedGoal = false,
+    checkedAssist = false,
     isYellow = false,
-    isRed = false
+    isRed = false,
+    isGoal = false,
+    isAssist = false
     
 
     const showInput = () =>{
         active = !active
+    }
+
+    const setCheckedState = () =>{
+
     }
    </script>
    
@@ -32,10 +43,28 @@
 
      <div class="extras">
         <label>
-            Y:<input type="checkbox" on:change={() => {isYellow = !isYellow}} {checked}>
+            Y:<input type="checkbox" on:change={() => {
+                isYellow = !isYellow
+                checkedYellow = !checkedYellow
+            }} bind:checked={checkedYellow}>
         </label>
         <label>
-            R:<input type="checkbox" on:change={() => {isRed = !isRed}} {checked}>
+            R:<input type="checkbox" on:change={() => {
+                isRed = !isRed
+                checkedRed = !checkedRed
+                }} bind:checked={checkedRed}>
+        </label>
+        <label>
+            G:<input type="checkbox" on:change={() => {
+                isGoal = !isGoal
+                checkedGoal = !checkedGoal
+                }} bind:checked={checkedGoal}>
+        </label>
+        <label>
+            A:<input type="checkbox" on:change={() => {
+                isAssist = !isAssist
+                checkedAssist = !checkedAssist
+            }} bind:checked={checkedAssist}>
         </label>
     </div>
 
@@ -53,6 +82,14 @@
 
     {#if isRed}
     <div class="red"></div>
+    {/if}
+
+    {#if isGoal}
+    <img src={Ball} alt="" class="ball">
+    {/if}
+
+    {#if isAssist}
+    <img src={Boot} alt="" class="boot">
     {/if}
     </div>
    </section>
@@ -97,6 +134,20 @@
           .red{
             right: 0;
             background-color: red;
+          }
+
+          .ball,.boot{
+            height: 16px;
+            width: auto;
+            position: absolute;
+          }
+
+          .ball{
+            left: 0;
+          }
+
+          .boot{
+            right: 0;
           }
        }
 
