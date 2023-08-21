@@ -121,8 +121,8 @@
           .yellow,.red{
             position: absolute;
             top: 0;
-            height: 8px;
-            width: 6px;
+            height: 10px;
+            width: 8px;
             border-radius: .1px;
           }
 

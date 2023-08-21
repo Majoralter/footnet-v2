@@ -99,7 +99,7 @@ const handleClick = () =>{
 </main>
 
 <footer>
-
+    Designed and developed by <a href="https://twitter.com/MajorAlter">Jenrola Jackson</a>
 </footer>
 
 
@@ -247,6 +247,17 @@ const handleClick = () =>{
         position: relative;
         padding-inline: 6.125rem;
         min-height: 90vh;
+    }
+
+    footer{
+        @include flex(row, center, center, 1em);
+        background: var(--gradient-24);
+        padding: 1rem;
+
+        a{
+            color: $black;
+            text-decoration: underline;
+        }
     }
 
 

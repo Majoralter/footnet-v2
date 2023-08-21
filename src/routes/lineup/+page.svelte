@@ -10,7 +10,10 @@
         renderMid = 4,
         renderFw = 3,
         array = [],
-        teamName = "Team Name"
+        teamName = "Team Name",
+        container,
+        imageUrl,
+        downloadLink
       
 const changeRender = () =>{
      array = selectValue.split("-")
@@ -19,6 +22,16 @@ const changeRender = () =>{
      renderFw = Number(array[2])
 
     //  console.log(array)
+}
+
+const saveFormation = async () =>{
+     container = container   
+     const canvas = await html2canvas(container)
+        imageUrl = canvas.toDataURL()
+        downloadLink = document.createElement("a")
+        downloadLink.href = imageUrl
+        downloadLink.download = teamName
+        downloadLink.click()
 }
 
 </script>
@@ -46,7 +59,7 @@ const changeRender = () =>{
     </label>
         
     <h1>{teamName}</h1> 
-        <div class="formation" style="background-image: url({Pitch});">
+        <div class="formation" style="background-image: url({Pitch});" bind:this={container}>
         <div class="forward">
             {#each Array(renderFw) as _}
                 <Forward />
@@ -66,6 +79,8 @@ const changeRender = () =>{
             <Gk />
         </div>
     </div>
+
+    <a href={imageUrl} on:click={saveFormation}>Download as PNG</a>
 </section>
 
 <style lang="scss">
@@ -75,7 +90,14 @@ const changeRender = () =>{
     @include flex(column, center, center, 1rem);
     padding: 1rem;
 
-    
+    a{
+        padding: 12px 24px;
+        color: white;
+        background-color: $black;
+        cursor: pointer;
+    }
+
+
    .formation{
     @include flex(column, center, center, 2rem);
     padding: .5rem 1rem;
