@@ -44,14 +44,12 @@
         leagueId = leagues[0].Id,
         date = new Date(),
         currentYear = date.getFullYear(),
-        table = [],
-        response,
-        data
+        table = []
 
     const url = `https://transfermarket.p.rapidapi.com/competitions/get-table?id=${leagueId}&seasonID=${currentYear}&domain=de`;
     const options = {
     	method: 'GET',
-        'cache': 'reload',
+        'cache': 'force-cache',
     	headers: {
     		'X-RapidAPI-Key': import.meta.env.VITE_RAPID_API_KEY,
     		'X-RapidAPI-Host': 'transfermarket.p.rapidapi.com'
@@ -59,7 +57,7 @@
     };    
 
     onMount(async () => {
-         response = await fetch(url,options)
+      const   response = await fetch(url,options),
               data = await response.json()
               
               table = [...data.table ]
@@ -68,7 +66,7 @@
     const fetchTable = async () =>{
         leagueId = leagueId
         const url = `https://transfermarket.p.rapidapi.com/competitions/get-table?id=${leagueId}&seasonID=${currentYear}&domain=de`;
-         response = await fetch(url, options)
+       const  response = await fetch(url, options),
               data = await response.json()
 
               table = [...data.table]

@@ -62,7 +62,7 @@ const handleClick = () =>{
         <li><span class="material-symbols-outlined">video_library</span><a href="/videos" data-sveltekit-preload-data="tap">Highlights</a></li>
         <li><span class="material-symbols-outlined">scoreboard</span><a href="/fixtures" data-sveltekit-preload-data="hover">Fixtures &amp; Results</a></li>
         <li><span class="material-symbols-outlined">trending_up</span><a href="/standings">Standings</a></li>
-        <li><span class="material-symbols-outlined">groups</span><a href="/">Lineup Builder</a></li>
+        <li><span class="material-symbols-outlined">groups</span><a href="/lineup">Lineup Builder</a></li>
         <li><span class="material-symbols-outlined">quiz</span><a href="/">Trivia and quizzes</a></li>
 
         {#if userIsSignedIn}
@@ -81,7 +81,7 @@ const handleClick = () =>{
         <li><span class="material-symbols-outlined">video_library</span><a href="/videos" data-sveltekit-preload-data="tap" on:click={handleClick}>Highlights</a></li>
         <li><span class="material-symbols-outlined">scoreboard</span><a href="/fixtures" on:click={handleClick}>Fixtures &amp; Results</a></li>
         <li><span class="material-symbols-outlined">trending_up</span><a href="/standings" on:click={handleClick}>Standings</a></li>
-        <li><span class="material-symbols-outlined">groups</span><a href="/" on:click={handleClick}>Lineup Builder</a></li>
+        <li><span class="material-symbols-outlined">groups</span><a href="/lineup" on:click={handleClick}>Lineup Builder</a></li>
         <li><span class="material-symbols-outlined">quiz</span><a href="/" on:click={handleClick}>Trivia and quizzes</a></li>
 
         {#if userIsSignedIn}
