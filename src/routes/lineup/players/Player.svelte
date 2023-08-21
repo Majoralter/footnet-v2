@@ -6,7 +6,10 @@
 
    let active = false,
     name = "Player",
-    number= Math.floor(Math.random() * 48) + 1 || "#"
+    number= Math.floor(Math.random() * 48) + 1 || "#",
+    checked = false,
+    isYellow = false,
+    isRed = false
     
 
     const showInput = () =>{
@@ -27,6 +30,15 @@
         <input type="number" bind:value={number} name="number">
      </label>
 
+     <div class="extras">
+        <label>
+            Y:<input type="checkbox" on:change={() => {isYellow = !isYellow}} {checked}>
+        </label>
+        <label>
+            R:<input type="checkbox" on:change={() => {isRed = !isRed}} {checked}>
+        </label>
+    </div>
+
      <button on:click={showInput}>Confirm</button>
     </div>
     {/if}
@@ -35,6 +47,13 @@
     <img src={shirt} alt="">
     <h5>{number}</h5>
     <h4>{name}</h4>
+    {#if isYellow}
+    <span class="yellow"></span>
+    {/if}
+
+    {#if isRed}
+    <div class="red"></div>
+    {/if}
     </div>
    </section>
    
@@ -45,6 +64,7 @@
           @include flex(column, center, center, .2em);
           position: relative;
           cursor: pointer;
+          position: relative;
 
           &:hover{
             scale: 1.1;
@@ -53,9 +73,6 @@
           h5{
             position: absolute;
             top: 20%;
-          }
-
-          h4{
             color: #27233A;
           }
    
@@ -63,11 +80,29 @@
            height: 43px;
            width: auto;
           }
+
+          .yellow,.red{
+            position: absolute;
+            top: 0;
+            height: 8px;
+            width: 6px;
+            border-radius: .1px;
+          }
+
+          .yellow{
+            right: 3px;
+            background-color: yellow;
+          }
+
+          .red{
+            right: 0;
+            background-color: red;
+          }
        }
 
        .modal{
         position: absolute;
-        top: -20%;
+        top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         padding: 20px;
@@ -77,8 +112,14 @@
 
         @include flex(column, center, center, 1rem);
 
+        .extras{
+            display: flex;
+            gap: 1em;
+        }
+
         label{
             color: $black;
+            @include flex(row, center, center, .2em);
 
             input{
                 padding: 7px 14px;

@@ -74,8 +74,8 @@ const changeRender = () =>{
     margin-inline: auto;
     @include flex(column, center, center, 1rem);
     padding: 1rem;
-    perspective: 1000px;
 
+    
    .formation{
     @include flex(column, center, center, 2rem);
     padding: .5rem 1rem;
@@ -85,15 +85,12 @@ const changeRender = () =>{
     border-radius: $border-radius-1;
     height: 445px;
     width: 390px;
-    transform-style: preserve-3d;
-    transform: rotateX(5deg);
 
     div{
         display: flex;
         gap: 1.3rem;
         align-items: center;
         justify-content: center;
-        transform: rotateX(0);
         flex-wrap: wrap;
     }
    }
