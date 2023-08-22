@@ -181,6 +181,9 @@
 
             table{
                 width: 100%;
+                td{
+                    font-size: $label;
+                }
             }
         }
     }
