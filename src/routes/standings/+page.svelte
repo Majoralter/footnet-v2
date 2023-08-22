@@ -70,7 +70,6 @@
               data = await response.json()
 
               table = [...data.table]
-              console.log(table)
     }
 </script>
 

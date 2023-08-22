@@ -220,13 +220,6 @@ const handleClick = () =>{
     @media (max-width: 1500px){
         .desktop_nav{
             padding: 2vw;
-            form{
-                label{
-                    input{
-                        width: 7rem;
-                    }
-                }
-            }
         }
     }
 

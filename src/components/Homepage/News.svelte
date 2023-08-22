@@ -50,7 +50,7 @@ onMount(async () =>{
          >
             {#each featuredArticles as feature}
             <swiper-slide> 
-               <img src={feature.mainMedia[0].original.url} alt="">
+               <img src={feature.mainMedia[0].original.url} alt="" loading="lazy">
 
                <div>
                 <h1>{feature.title}</h1>
@@ -71,7 +71,7 @@ onMount(async () =>{
         >
             {#each topStories as story}
                 <swiper-slide>
-                    <img src={story.mainMedia[0].original.url} alt="">
+                    <img src={story.mainMedia[0].original.url} alt="" loading="lazy">
 
                     <div>
                      <h1>{story.title}</h1>
@@ -94,7 +94,7 @@ onMount(async () =>{
         >
             {#each footballArticles as article}
             <swiper-slide>
-                <img src={article.mainMedia[0].original.url} alt="">
+                <img src={article.mainMedia[0].original.url} alt="" loading="lazy">
 
                 <div>
                  <h1>{article.title}</h1>

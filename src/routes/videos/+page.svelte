@@ -27,7 +27,7 @@ onMount(async () =>{
         <div>
             <h4>{video.title}</h4>
         <a href={video.url}>
-            <img src={video.thumbnail} alt="">
+            <img src={video.thumbnail} alt="" loading="lazy">
         </a>
     </div>
         {/each}
