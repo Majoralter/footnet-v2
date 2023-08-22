@@ -54,7 +54,7 @@ onMount(async () =>{
 
                <div>
                 <h1>{feature.title}</h1>
-                <a href={feature.url} target="_blank">Read More</a>
+                <a rel="external" href="https://www.livescore.com/{feature.url}" target="_blank">Read More</a>
                </div>
             </swiper-slide>
             {/each}
@@ -75,7 +75,7 @@ onMount(async () =>{
 
                     <div>
                      <h1>{story.title}</h1>
-                     <a href={story.url} target="_blank">Read More</a>
+                     <a href="https://www.livescore.com/{story.url}" target="_blank" rel="external">Read More</a>
                     </div>
                 </swiper-slide>
             {/each}
@@ -98,7 +98,7 @@ onMount(async () =>{
 
                 <div>
                  <h1>{article.title}</h1>
-                 <a href={article.url} target="_blank">Read More</a>
+                 <a href="https://www.livescore.com/{article.url}" target="_blank" rel="external">Read More</a>
                 </div>
             </swiper-slide>
             {/each}
