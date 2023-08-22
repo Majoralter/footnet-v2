@@ -41,12 +41,6 @@ const handleClick = () =>{
 <nav class="desktop_nav">
     <a href="/" class="logo"><Logo></Logo></a>
 
-    <form autocomplete="off"> 
-        <label>
-            <span class="material-symbols-outlined">search</span> <input type="search" name="search-input" placeholder="Search for clubs, players etc">
-        </label>
-    </form>
-
     {#if windowWidth < 1500}
     <button class="menu" on:click="{handleClick}">
         {#if !active}
@@ -63,7 +57,7 @@ const handleClick = () =>{
         <li><span class="material-symbols-outlined">scoreboard</span><a href="/fixtures" data-sveltekit-preload-data="hover">Fixtures &amp; Results</a></li>
         <li><span class="material-symbols-outlined">trending_up</span><a href="/standings">Standings</a></li>
         <li><span class="material-symbols-outlined">groups</span><a href="/lineup">Lineup Builder</a></li>
-        <li><span class="material-symbols-outlined">quiz</span><a href="/">Trivia and quizzes</a></li>
+        <li><span class="material-symbols-outlined">quiz</span><a href="/trivia">Trivia</a></li>
 
         {#if userIsSignedIn}
         <li><button on:click="{handleLogout}">Log out</button></li>
@@ -82,7 +76,7 @@ const handleClick = () =>{
         <li><span class="material-symbols-outlined">scoreboard</span><a href="/fixtures" on:click={handleClick}>Fixtures &amp; Results</a></li>
         <li><span class="material-symbols-outlined">trending_up</span><a href="/standings" on:click={handleClick}>Standings</a></li>
         <li><span class="material-symbols-outlined">groups</span><a href="/lineup" on:click={handleClick}>Lineup Builder</a></li>
-        <li><span class="material-symbols-outlined">quiz</span><a href="/" on:click={handleClick}>Trivia and quizzes</a></li>
+        <li><span class="material-symbols-outlined">quiz</span><a href="/trivia" on:click={handleClick}>Trivia</a></li>
 
         {#if userIsSignedIn}
         <li><button on:click="{handleLogout, handleClick}">Log out</button></li>
@@ -198,45 +192,6 @@ const handleClick = () =>{
 
                     &:hover{
                         opacity: .9;
-                    }
-                }
-            }
-        }
-
-        form{
-            label{
-                padding: 12px 1rem;
-                @include flex(row, center, flex-start, 0.3125rem);
-                background-color: $gray-background;
-                border-radius: $border-radius-2;
-
-
-                &:focus-within{
-                    outline: solid $border $blue;
-                    span{
-                        color: $black;
-                        animation: var(--animation-shake-y);
-                    }
-                }
-
-                span{
-                    color: $gray-text;
-                }
-
-                input{
-                    height: 100%;
-                    width: 15rem;
-                    background: transparent;
-                    border: none;
-                    color: $black;
-
-                    &::placeholder{
-                        color: $gray-text;
-                    }
-
-                    &:focus{
-                        outline: none;
-                        background: transparent;
                     }
                 }
             }
