@@ -1,7 +1,7 @@
 import { initializeApp, getApp, getApps, deleteApp } from "firebase/app";
 // import { getAnalytics } from "firebase/analytics";
-import { getFirestore } from "firebase/firestore"
 import { getAuth } from "firebase/auth"
+import { getStorage} from "firebase/storage"
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
@@ -19,5 +19,5 @@ let firebaseApp;
 if(!getApps().length) firebaseApp = initializeApp(firebaseConfig)
 else firebaseApp = getApp(); deleteApp(firebaseApp); firebaseApp = initializeApp(firebaseConfig)
 
-export const db = getFirestore(firebaseApp)
 export const auth = getAuth(firebaseApp)
+export const storage = getStorage(firebaseApp)

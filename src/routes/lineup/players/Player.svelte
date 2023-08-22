@@ -22,10 +22,6 @@
     const showInput = () =>{
         active = !active
     }
-
-    const setCheckedState = () =>{
-
-    }
    </script>
    
 

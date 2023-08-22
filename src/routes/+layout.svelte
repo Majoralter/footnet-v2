@@ -253,6 +253,7 @@ const handleClick = () =>{
         @include flex(row, center, center, 1em);
         background: var(--gradient-24);
         padding: 1rem;
+        margin-top: 1vh;
 
         a{
             color: $black;

@@ -1,6 +1,7 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth"
 import { writable } from "svelte/store"
 import { auth } from "$lib/firebase/firebase"
+import { uploadString, getDownloadURL } from "firebase/storage"
 
 
 export const authStore = writable({
@@ -18,5 +19,11 @@ export const  authHandlers = {
     },
     logout: async () =>{
         await signOut(auth)
+    }
+}
+
+export const storageHandlers = {
+    upload: async (ref, image) =>{
+        await uploadString(ref, image, 'data_url')
     }
 }

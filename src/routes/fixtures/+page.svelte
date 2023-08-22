@@ -44,8 +44,6 @@ onMount(async () =>{
           results = resultsData.data  
           results.sort((a,b) => a.id - b.id)
 
-        //   console.log(results)
-
  handleFilter = () => {
     if(filteredLeague === "All"){
         isFiltered = false
