@@ -137,7 +137,9 @@ const handleClick = () =>{
 
         .menu{
             padding: .5rem;
-            color: $black;
+            color: $white;
+            background-color: $blue;
+            border: none;
         }
 
         ul{
