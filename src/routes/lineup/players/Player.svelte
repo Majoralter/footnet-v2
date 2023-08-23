@@ -8,7 +8,7 @@
 
    let active = false,
     name = "Player",
-    number= Math.floor(Math.random() * 48) + 1 || "#",
+    number= Math.floor(Math.random() * 48) + 1 | "#",
     checkedYellow = false,
     checkedRed = false,
     checkedGoal = false,
