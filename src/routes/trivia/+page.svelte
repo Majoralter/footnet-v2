@@ -14,7 +14,8 @@
         isWrong = false,
         clickedAns = 0,
         disableAnswers = false,
-        score = 0
+        score = 0,
+        isLast = false
         
         const sortRandomly = () =>{
         questions.forEach(question =>{
@@ -35,10 +36,8 @@
 
 
 <section>
-
-<header><h5 style="color: gray;">Score: {score} / {questions.length}</h5></header>
-
-<div class="quiz">
+{#if !isLast}
+<div class="quiz" in:fade>
 <div class="question">
 {#each questions as question, i}
 {#if currentQuestion === question}
@@ -51,6 +50,7 @@
         clickedAns = index
         answer.isCorrect ? isCorrect = true : isWrong = true
         answer.isCorrect ? score++ : ''
+        currentQuestion === questions[questions.length - 1] ? setTimeout(() => isLast = true, 1200) : isLast = false
         }}>{answer.ans}</button>
 {/each}
 {/if}
@@ -59,8 +59,13 @@
 
 <div class="navigation">
 <button on:click={nextQues} disabled={disabled} class:disabled={disabled}>Next</button>
+</div>
+</div>
 
-{#if i === questions.length - 1}
+{:else}
+<div class="result" in:fade>
+<h1>You scored {score} out of {questions.length}!</h1>
+
     <button on:click={() =>{
         setTimeout(() =>{
             score = 0
@@ -68,13 +73,13 @@
             disableAnswers = false
             isCorrect = false
             isWrong = false
+            isLast = false
             i = 0
             currentQuestion = questions[i]
         }, 100)
     }}>Try again</button>
+ </div>
 {/if}
-</div>
-</div> 
 </section>
 
 <style lang="scss">
@@ -83,6 +88,20 @@
         width: 80vw;
         @include flex(column, center, center, 0);
         margin: auto;
+
+        .result{
+            @include flex(column, center, center, 1em);
+            width: 30vw;
+
+            button{
+                width: 50%;
+                padding: 12px 24px;
+                background-color: $black;
+                color: $white;
+                border: none;
+                cursor: pointer;
+            }
+        }
 
         .quiz{
         @include flex(column, center, center, 2em);

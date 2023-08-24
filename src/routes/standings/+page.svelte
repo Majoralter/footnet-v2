@@ -1,5 +1,6 @@
 <script>
     import { onMount } from "svelte";
+    import Loader from "../../components/Homepage/Loader.svelte";
 
     const leagues = [
         {
@@ -64,6 +65,7 @@
     })
 
     const fetchTable = async () =>{
+        table = []
         leagueId = leagueId
         const url = `https://transfermarket.p.rapidapi.com/competitions/get-table?id=${leagueId}&seasonID=${currentYear}&domain=de`;
        const  response = await fetch(url, options),
@@ -88,6 +90,9 @@
         </ul>
     </header>
 
+    {#if table.length === 0}
+        <Loader />
+    {:else}
     <table>
      <tr>
         <th>Pos</th>
@@ -113,6 +118,7 @@
         </tr>
      {/each}
 </table>
+{/if}
 </section>
 
 

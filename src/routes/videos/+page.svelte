@@ -1,5 +1,6 @@
 <script>
 import { onMount } from "svelte";
+import Loader from "../../components/Homepage/Loader.svelte";
 
 const url = 'https://free-football-soccer-videos.p.rapidapi.com/';
 const options = {
@@ -22,6 +23,9 @@ onMount(async () =>{
 </script>
 
 <section>
+    {#if videos.length === 0}
+        <Loader />
+    {:else}
     <div class="container">
         {#each videos as video}
         <div>
@@ -32,6 +36,7 @@ onMount(async () =>{
     </div>
         {/each}
     </div>
+    {/if}
 </section>
 
 <style lang="scss">
