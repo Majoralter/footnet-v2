@@ -46,7 +46,7 @@
 <h1 in:fade>{question.q}</h1>
 
 {#each question.a as answer, index}
-    <button class:ans={isCorrect && clickedAns === index} class:wrong={isWrong && clickedAns === index} disabled={disableAnswers} on:click={() =>{
+    <button class:ans={(isCorrect && clickedAns === index) || (disableAnswers && answer.isCorrect)} class:wrong={isWrong && clickedAns === index} disabled={disableAnswers} on:click={() =>{
         disableAnswers = true
         clickedAns = index
         answer.isCorrect ? isCorrect = true : isWrong = true
