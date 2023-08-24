@@ -87,6 +87,7 @@
         .result{
             @include flex(column, center, center, 1em);
             width: 30vw;
+            text-align: center;
 
             button{
                 width: 50%;
@@ -167,6 +168,10 @@
 
     @media (max-width: 825px){
         section{
+            .result{
+                width: 60vw;
+            }
+
             .quiz{
                 width: 60vw;
 
