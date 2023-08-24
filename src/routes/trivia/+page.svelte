@@ -1,11 +1,11 @@
 <script>
     import { questions } from "./quiz"
     import { fade } from "svelte/transition"
-    import { onMount } from "svelte"
 
-    onMount(() =>{
-        sortRandomly()
-    })
+
+        questions.forEach(question =>{
+        question.a.sort(() => Math.random() - 0.5)
+        })
 
     let i = 0,
         currentQuestion = questions[0],
@@ -17,11 +17,6 @@
         score = 0,
         isLast = false
         
-        const sortRandomly = () =>{
-        questions.forEach(question =>{
-        question.a.sort(() => Math.random() - 0.5)
-        })
-        }
 
         const nextQues = () =>{
             isCorrect = false
